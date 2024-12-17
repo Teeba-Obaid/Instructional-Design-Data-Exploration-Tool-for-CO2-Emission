@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Consumption CO₂ Emissions</title>
+    <link rel="stylesheet" href="https://unpkg.com/tabulator-tables@4.4.1/dist/css/tabulator.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/tabulator-tables@4.4.1/dist/js/tabulator.min.js"></script>
+    <style>
+        /* Custom styles to make cells and text larger */
+        .tabulator .tabulator-header .tabulator-col {
+            font-size: 1.5em;  /* Larger header text */
+        }
+        .tabulator .tabulator-tableHolder .tabulator-table .tabulator-row {
+            font-size: 1.4em;  /* Larger row text */
+            height: 60px;  /* Increased row height */
+        }
+        .tabulator-cell {
+            padding: 15px;  /* Increased cell padding */
+        }
+    </style>
+</head>
+<body>
+    <h1>Interactive Food Consumption Table and CO₂ Emissions Graph</h1>
+
+    <div id="food-table"></div>
+    <button onclick="saveData()">Save Plan</button>
+    <canvas id="co2Chart" width="350" height="150"></canvas>
+
+    <script>
+        // Tabulator Table Setup
+        var tableData = [
+            { id: 1, food: "Beef", rate: 27, current: 0, future: 0, co2saved: 0, poundco2saved: 0 },
+            { id: 2, food: "Cheese", rate: 13.5, current: 0, future: 0, co2saved: 0, poundco2saved: 0 },
+            { id: 3, food: "Chicken", rate: 6.9, current: 0, future: 0, co2saved: 0, poundco2saved: 0 },
+            { id: 4, food: "Rice", rate: 2.7, current: 0, future: 0, co2saved: 0, poundco2saved: 0 },
+            { id: 5, food: "Vegetables", rate: 2.0, current: 0, future: 0, co2saved: 0, poundco2saved: 0 },
+            { id: 6, food: "Eggs", rate: 4.8, current: 0, future: 0, co2saved: 0, poundco2saved: 0 },
+            { id: 7, food: "Milk", rate: 1.9, current: 0, future: 0, co2saved: 0, poundco2saved: 0 },
+        ];
+
+        var table = new Tabulator("#food-table", {
+            data: tableData,
+            layout: "fitColumns",
+            reactiveData: true,
+            headerSort: false,
+            columns: [
+                { title: "Food Type", field: "food", cssClass: "bold", minWidth: 150 },
+                { title: "CO₂ Emission Factor (kg CO₂/kg)", field: "rate", minWidth: 200, widthGrow: 2 },
+                { title: "Current Consumption (kg/day)", field: "current", editor: "input", validator: ["numeric", "min: 0", "required"], cssClass: "editable", minWidth: 200 },
+                { title: "Future Consumption (kg/day)", field: "future", editor: "input", validator: ["numeric", "min: 0", "required"], cssClass: "editable", minWidth: 200 },
+                { title: "CO₂ Saved/yr (kg)", field: "co2saved", minWidth: 180 },
+                { title: "Pounds CO₂ Saved/yr", field: "poundco2saved", minWidth: 180 },
+            ],
+        });
+
+        // Chart.js Setup
+        var ctx = document.getElementById('co2Chart').getContext('2d');
+        var co2Chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Current CO₂ Saved/yr', 'Future CO₂ Saved/yr'],
+                datasets: [
+                    {
+                        label: 'Pounds CO₂ Saved/yr',
+                        data: [0, 0], // Placeholder data for both "Current" and "Future"
+                        backgroundColor: ['orange', 'green'], // Different colors for each bar
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Pounds of CO₂ Saved/yr',  // Title for Y-axis
+                            font: {
+                                size: 14
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false // Hide legend since labels are self-explanatory now
+                    }
+                }
+            }
+        });
+
+        // Function to save data and update the graph
+        function saveData() {
+            // Extract data from the table
+            var data = table.getData();
+
+            // Send data to the backend for processing
+            fetch('/update-data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update the table with calculated fields
+                table.replaceData(data.updatedData);
+
+                // Calculate totals for the graph
+                let currentTotal = data.updatedData.reduce((acc, row) => acc + parseFloat(row.co2saved || 0), 0);
+                let futureTotal = data.updatedData.reduce((acc, row) => acc + parseFloat(row.poundco2saved || 0), 0);
+
+                // Update the graph with new totals
+                co2Chart.data.datasets[0].data = [currentTotal, futureTotal];
+                co2Chart.update();
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
