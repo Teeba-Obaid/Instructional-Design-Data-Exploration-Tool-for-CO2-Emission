@@ -123,14 +123,17 @@ Designed for educational settings, this tool supports individualized learning as
 
 ### Data Exploration Workspace
 
+![Workspace](https://github.com/Teeba-Obaid/Instructional-Design-Data-Exploration-Tool-for-CO2-Emission/blob/master/Screenshots%20of%20the%20Tool/Data%20Exploration%20Workspace.png)
 *Interactive workspace for entering and updating food consumption data.*
 
 ### Data Exploration Table
 
+![Table](https://github.com/Teeba-Obaid/Instructional-Design-Data-Exploration-Tool-for-CO2-Emission/blob/master/Screenshots%20of%20the%20Tool/Data%20Exploration%20Table.png)
 *Table displaying individual and class-wide food consumption data.*
 
 ### Data Exploration Graph
 
+![Graph](https://github.com/Teeba-Obaid/Instructional-Design-Data-Exploration-Tool-for-CO2-Emission/blob/master/Screenshots%20of%20the%20Tool/Data%20Exploration%20Graph.png)
 *Dynamic charts visualizing CO₂ savings based on consumption data.*
 
 ## Future Enhancements
