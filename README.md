@@ -49,12 +49,6 @@ Designed for educational settings, this tool supports individualized learning as
 - **Dynamic Charts**
   - **Chart.js Integration**: Generates bar charts to visualize CO₂ savings, enabling easy comparison between current and future scenarios.
 
-### Knowledge Integration Rubric
-
-- **Comprehensive Rubric**
-  - Defines criteria for evaluating knowledge integration scores.
-  - Offers descriptive feedback to guide student assessments and improvements.
-
 - **Recommended Feedback**
   - Provides structured feedback strategies aligned with assessment scores.
   - Enhances the quality of feedback, fostering deeper student understanding and engagement.
@@ -88,17 +82,6 @@ Designed for educational settings, this tool supports individualized learning as
 - **CO₂ Savings Chart**
   - View the bar chart displaying the comparison between current and future CO₂ emissions in pounds.
   - Analyze the environmental impact of changes in food consumption patterns.
-
-### Utilizing the Knowledge Integration Rubric
-
-1. **Review KI Scores**
-   - Examine the Knowledge Integration (KI) scores based on student responses and performance.
-
-2. **Provide Feedback**
-   - Use the recommended feedback section to offer constructive comments and guidance aligned with KI scores.
-
-3. **Enhance Learning**
-   - Encourage students to reflect on their KI scores and utilize feedback to improve their understanding and application of environmental concepts.
 
 ## Educational Benefits
 
@@ -138,29 +121,17 @@ Designed for educational settings, this tool supports individualized learning as
 
 ## Screenshots
 
-### Simulation Workspace
+### Data Exploration Workspace
 
 *Interactive workspace for entering and updating food consumption data.*
 
-### Measurement Tools
+### Data Exploration Table
 
-*Available assessment categories for data entry.*
+*Table displaying individual and class-wide food consumption data.*
 
-### Measurement Table
-
-*Table displaying individual and class-wide food consumption scores.*
-
-### Simulation Results
+### Data Exploration Graph
 
 *Dynamic charts visualizing CO₂ savings based on consumption data.*
-
-### Knowledge Integration Rubric
-
-*Comprehensive rubric for evaluating Knowledge Integration scores.*
-
-### Recommended Feedback
-
-*Structured feedback strategies aligned with KI scores.*
 
 ## Future Enhancements
 
